@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 
 interface Memory {
@@ -25,6 +25,23 @@ export default function AnniversaryApp() {
     { id: 3, url: "", caption: "" },
     { id: 4, url: "", caption: "" },
   ]);
+
+  // Apply black background to body when calculator is shown
+  useEffect(() => {
+    if (showCalculator) {
+      document.body.style.margin = "0";
+      document.body.style.padding = "0";
+      document.body.style.backgroundColor = "#000";
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.backgroundColor = "#000";
+      document.documentElement.style.margin = "0";
+      document.documentElement.style.padding = "0";
+    } else {
+      document.body.style.backgroundColor = "#fff";
+      document.body.style.overflow = "auto";
+      document.documentElement.style.backgroundColor = "#fff";
+    }
+  }, [showCalculator]);
 
   const handleButtonClick = (value: string) => {
     if (value === "=") {
@@ -62,29 +79,47 @@ export default function AnniversaryApp() {
   };
 
   if (showCalculator) {
+    const isMobile = window.innerWidth <= 414;
+
     return (
       <div
         style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
           minHeight: "100vh",
+          height: "100vh",
+          width: "100vw",
           backgroundColor: "#000",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: "12px",
+          padding: isMobile ? "20px 16px" : "12px",
+          margin: 0,
+          overflow: "hidden",
         }}
       >
-        <div style={{ width: "100%", maxWidth: "100%", padding: "0 8px" }}>
+        <div
+          style={{
+            width: "100%",
+            maxWidth: isMobile ? "100%" : "420px",
+            padding: 0,
+          }}
+        >
           {/* Display */}
           <div
             style={{
               backgroundColor: "#000",
               color: "#fff",
               textAlign: "right",
-              fontSize: window.innerWidth < 400 ? "48px" : "60px",
+              fontSize: isMobile ? "64px" : "60px",
               fontWeight: "300",
-              marginBottom: "8px",
-              padding: window.innerWidth < 400 ? "24px 16px" : "32px 24px",
+              marginBottom: isMobile ? "16px" : "8px",
+              padding: isMobile ? "40px 8px 20px 8px" : "32px 24px",
               overflow: "hidden",
+              minHeight: isMobile ? "120px" : "auto",
             }}
           >
             {display}
@@ -95,8 +130,8 @@ export default function AnniversaryApp() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
-              gap: window.innerWidth < 400 ? "8px" : "12px",
-              maxWidth: "420px",
+              gap: isMobile ? "10px" : "12px",
+              maxWidth: "100%",
               margin: "0 auto",
             }}
           >
@@ -144,14 +179,14 @@ export default function AnniversaryApp() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          padding: "24px",
+          padding: window.innerWidth <= 414 ? "24px 20px" : "24px",
           position: "relative",
         }}
       >
         <div style={{ textAlign: "center" }}>
           <h1
             style={{
-              fontSize: "96px",
+              fontSize: window.innerWidth <= 414 ? "80px" : "96px",
               fontWeight: "300",
               letterSpacing: "-2px",
               marginBottom: "24px",
@@ -161,7 +196,7 @@ export default function AnniversaryApp() {
           </h1>
           <p
             style={{
-              fontSize: "28px",
+              fontSize: window.innerWidth <= 414 ? "22px" : "28px",
               fontWeight: "300",
               color: "#666",
               marginBottom: "24px",
@@ -173,9 +208,10 @@ export default function AnniversaryApp() {
             style={{
               fontSize: "14px",
               color: "#999",
-              maxWidth: "448px",
+              maxWidth: "320px",
               margin: "0 auto",
               lineHeight: "1.6",
+              padding: "0 16px",
             }}
           >
             เขียนข้อความตรงนี้ได้เลย
@@ -202,21 +238,27 @@ export default function AnniversaryApp() {
         style={{
           maxWidth: "896px",
           margin: "0 auto",
-          padding: "80px 24px",
+          padding: window.innerWidth <= 414 ? "60px 20px" : "80px 24px",
         }}
       >
         <h2
           style={{
-            fontSize: "36px",
+            fontSize: window.innerWidth <= 414 ? "32px" : "36px",
             fontWeight: "300",
-            marginBottom: "64px",
+            marginBottom: window.innerWidth <= 414 ? "48px" : "64px",
             textAlign: "center",
           }}
         >
           moments
         </h2>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "96px" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: window.innerWidth <= 414 ? "72px" : "96px",
+          }}
+        >
           {memories.map((memory, index) => (
             <div
               key={memory.id}
@@ -360,29 +402,34 @@ function CalcButton({
   };
 
   const currentColor = colors[color];
+  const isMobile = window.innerWidth <= 414;
+  const buttonSize = isMobile ? Math.floor((window.innerWidth - 52) / 4) : 80;
 
   return (
     <div
       onClick={() => onClick(value)}
       style={{
-        height: "80px",
-        borderRadius: "40px",
-        fontSize: "32px",
+        height: `${buttonSize}px`,
+        borderRadius: `${buttonSize / 2}px`,
+        fontSize: isMobile ? "30px" : "32px",
         fontWeight: "300",
         display: "flex",
         alignItems: "center",
         justifyContent: wide ? "flex-start" : "center",
-        paddingLeft: wide ? "32px" : "0",
+        paddingLeft: wide ? (isMobile ? "28px" : "32px") : "0",
         cursor: "pointer",
         userSelect: "none",
         backgroundColor: currentColor.bg,
         color: currentColor.text,
         gridColumn: wide ? "span 2" : "span 1",
         transition: "opacity 0.1s",
+        WebkitTapHighlightColor: "transparent",
       }}
       onMouseDown={(e) => (e.currentTarget.style.opacity = "0.5")}
       onMouseUp={(e) => (e.currentTarget.style.opacity = "1")}
       onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
+      onTouchStart={(e) => (e.currentTarget.style.opacity = "0.5")}
+      onTouchEnd={(e) => (e.currentTarget.style.opacity = "1")}
     >
       {value}
     </div>
