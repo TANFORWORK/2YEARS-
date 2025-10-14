@@ -96,7 +96,7 @@ export default function AnniversaryApp() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          padding: isMobile ? "20px 16px" : "12px",
+          padding: 0,
           margin: 0,
           overflow: "hidden",
         }}
@@ -104,8 +104,8 @@ export default function AnniversaryApp() {
         <div
           style={{
             width: "100%",
-            maxWidth: isMobile ? "100%" : "420px",
-            padding: 0,
+            maxWidth: "100%",
+            padding: isMobile ? "20px 12px" : "20px 16px",
           }}
         >
           {/* Display */}
@@ -130,7 +130,7 @@ export default function AnniversaryApp() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
-              gap: isMobile ? "10px" : "12px",
+              gap: isMobile ? "8px" : "12px",
               maxWidth: "100%",
               margin: "0 auto",
             }}
@@ -403,7 +403,7 @@ function CalcButton({
 
   const currentColor = colors[color];
   const isMobile = window.innerWidth <= 414;
-  const buttonSize = isMobile ? Math.floor((window.innerWidth - 52) / 4) : 80;
+  const buttonSize = isMobile ? Math.floor((window.innerWidth - 40) / 4) : 80;
 
   return (
     <div
@@ -411,12 +411,12 @@ function CalcButton({
       style={{
         height: `${buttonSize}px`,
         borderRadius: `${buttonSize / 2}px`,
-        fontSize: isMobile ? "30px" : "32px",
+        fontSize: isMobile ? "28px" : "32px",
         fontWeight: "300",
         display: "flex",
         alignItems: "center",
         justifyContent: wide ? "flex-start" : "center",
-        paddingLeft: wide ? (isMobile ? "28px" : "32px") : "0",
+        paddingLeft: wide ? (isMobile ? "24px" : "32px") : "0",
         cursor: "pointer",
         userSelect: "none",
         backgroundColor: currentColor.bg,
