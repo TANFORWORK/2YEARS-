@@ -19,12 +19,30 @@ interface CalcButtonProps {
 export default function AnniversaryApp() {
   const [showCalculator, setShowCalculator] = useState(true);
   const [display, setDisplay] = useState("0");
-  const [memories, setMemories] = useState<Memory[]>([
-    { id: 1, url: "", caption: "" },
-    { id: 2, url: "", caption: "" },
-    { id: 3, url: "", caption: "" },
-    { id: 4, url: "", caption: "" },
-  ]);
+
+  // ใหŒ dev ใส่ URL รูปภาพหรือวิดีโอตรงนี้
+  const memories: Memory[] = [
+    {
+      id: 1,
+      url: "/public/img&clip/TEST.jpg",
+      caption: "",
+    },
+    {
+      id: 2,
+      url: "",
+      caption: "",
+    },
+    {
+      id: 3,
+      url: "",
+      caption: "",
+    },
+    {
+      id: 4,
+      url: "",
+      caption: "",
+    },
+  ];
 
   // Apply black background to body when calculator is shown
   useEffect(() => {
@@ -61,23 +79,6 @@ export default function AnniversaryApp() {
     }
   };
 
-  const handleFileUpload = (
-    id: number,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setMemories((prev) => prev.map((m) => (m.id === id ? { ...m, url } : m)));
-    }
-  };
-
-  const handleCaptionChange = (id: number, caption: string) => {
-    setMemories((prev) =>
-      prev.map((m) => (m.id === id ? { ...m, caption } : m))
-    );
-  };
-
   if (showCalculator) {
     const isMobile = window.innerWidth <= 414;
 
@@ -94,18 +95,23 @@ export default function AnniversaryApp() {
           width: "100vw",
           backgroundColor: "#000",
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-end",
           justifyContent: "center",
           padding: 0,
           margin: 0,
           overflow: "hidden",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif',
         }}
       >
         <div
           style={{
             width: "100%",
             maxWidth: "100%",
-            padding: isMobile ? "20px 12px" : "20px 16px",
+            padding: isMobile ? "0" : "20px",
+            paddingBottom: isMobile
+              ? "max(env(safe-area-inset-bottom), 8px)"
+              : "20px",
           }}
         >
           {/* Display */}
@@ -114,12 +120,16 @@ export default function AnniversaryApp() {
               backgroundColor: "#000",
               color: "#fff",
               textAlign: "right",
-              fontSize: isMobile ? "64px" : "60px",
-              fontWeight: "300",
-              marginBottom: isMobile ? "16px" : "8px",
-              padding: isMobile ? "40px 8px 20px 8px" : "32px 24px",
+              fontSize: isMobile ? "80px" : "72px",
+              fontWeight: "200",
+              marginBottom: isMobile ? "20px" : "16px",
+              padding: isMobile ? "0 24px" : "0 32px",
               overflow: "hidden",
-              minHeight: isMobile ? "120px" : "auto",
+              minHeight: isMobile ? "140px" : "120px",
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "flex-end",
+              letterSpacing: "-0.5px",
             }}
           >
             {display}
@@ -130,9 +140,10 @@ export default function AnniversaryApp() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
-              gap: isMobile ? "8px" : "12px",
+              gap: isMobile ? "12px" : "14px",
               maxWidth: "100%",
               margin: "0 auto",
+              padding: isMobile ? "0 12px" : "0 16px",
             }}
           >
             {/* Row 1 */}
@@ -259,12 +270,12 @@ export default function AnniversaryApp() {
             gap: window.innerWidth <= 414 ? "72px" : "96px",
           }}
         >
-          {memories.map((memory, index) => (
+          {memories.map((memory) => (
             <div
               key={memory.id}
               style={{ display: "flex", flexDirection: "column", gap: "16px" }}
             >
-              {/* Image/Video Upload Area */}
+              {/* Image/Video Display */}
               <div
                 style={{
                   aspectRatio: "4/3",
@@ -274,52 +285,26 @@ export default function AnniversaryApp() {
                   position: "relative",
                 }}
               >
-                {memory.url ? (
-                  memory.url.includes("video") ||
-                  memory.url.includes(".mp4") ? (
-                    <video
-                      src={memory.url}
-                      controls
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  ) : (
-                    <img
-                      src={memory.url}
-                      alt={memory.caption}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  )
-                ) : (
-                  <label
+                {memory.url.includes("video") || memory.url.includes(".mp4") ? (
+                  <video
+                    src={memory.url}
+                    controls
                     style={{
                       width: "100%",
                       height: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer",
+                      objectFit: "cover",
                     }}
-                  >
-                    <div style={{ textAlign: "center" }}>
-                      <p style={{ color: "#999", fontSize: "14px" }}>
-                        + เพิ่มรูปหรือคลิป
-                      </p>
-                    </div>
-                    <input
-                      type="file"
-                      accept="image/*,video/*"
-                      onChange={(e) => handleFileUpload(memory.id, e)}
-                      style={{ display: "none" }}
-                    />
-                  </label>
+                  />
+                ) : (
+                  <img
+                    src={memory.url}
+                    alt={memory.caption}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
                 )}
               </div>
 
@@ -331,32 +316,17 @@ export default function AnniversaryApp() {
                   gap: "12px",
                 }}
               >
-                <span
-                  style={{
-                    color: "#999",
-                    fontSize: "14px",
-                    marginTop: "4px",
-                    flexShrink: 0,
-                  }}
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <input
-                  type="text"
-                  value={memory.caption}
-                  onChange={(e) =>
-                    handleCaptionChange(memory.id, e.target.value)
-                  }
-                  placeholder="เขียนอะไรสักหน่อย..."
+                <p
                   style={{
                     flex: 1,
-                    background: "transparent",
-                    border: "none",
-                    outline: "none",
                     color: "#666",
                     fontSize: "14px",
+                    margin: 0,
+                    lineHeight: "1.6",
                   }}
-                />
+                >
+                  {memory.caption}
+                </p>
               </div>
             </div>
           ))}
@@ -365,13 +335,7 @@ export default function AnniversaryApp() {
 
       {/* Footer */}
       <div style={{ padding: "80px 0", textAlign: "center" }}>
-        <p style={{ fontSize: "14px", color: "#999", marginBottom: "8px" }}>
-          {new Date().toLocaleDateString("th-TH", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </p>
+        <p style={{ fontSize: "14px", color: "#999", marginBottom: "8px" }}></p>
         <p style={{ color: "#666" }}>ขอบคุณสำหรับทุกวัน</p>
       </div>
 
@@ -396,14 +360,14 @@ function CalcButton({
   wide = false,
 }: CalcButtonProps) {
   const colors = {
-    dark: { bg: "#333", text: "#fff" },
-    gray: { bg: "#a5a5a5", text: "#000" },
-    orange: { bg: "#ff9500", text: "#fff" },
+    dark: { bg: "#333333", text: "#fff" },
+    gray: { bg: "#a6a6a6", text: "#000" },
+    orange: { bg: "#ff9f0a", text: "#fff" },
   };
 
   const currentColor = colors[color];
   const isMobile = window.innerWidth <= 414;
-  const buttonSize = isMobile ? Math.floor((window.innerWidth - 40) / 4) : 80;
+  const buttonSize = isMobile ? Math.floor((window.innerWidth - 48) / 4) : 84;
 
   return (
     <div
@@ -411,25 +375,42 @@ function CalcButton({
       style={{
         height: `${buttonSize}px`,
         borderRadius: `${buttonSize / 2}px`,
-        fontSize: isMobile ? "28px" : "32px",
-        fontWeight: "300",
+        fontSize: isMobile ? "32px" : "36px",
+        fontWeight: color === "gray" ? "400" : "300",
         display: "flex",
         alignItems: "center",
         justifyContent: wide ? "flex-start" : "center",
-        paddingLeft: wide ? (isMobile ? "24px" : "32px") : "0",
+        paddingLeft: wide ? (isMobile ? "28px" : "34px") : "0",
         cursor: "pointer",
         userSelect: "none",
         backgroundColor: currentColor.bg,
         color: currentColor.text,
         gridColumn: wide ? "span 2" : "span 1",
-        transition: "opacity 0.1s",
+        transition: "all 0.15s ease",
         WebkitTapHighlightColor: "transparent",
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
       }}
-      onMouseDown={(e) => (e.currentTarget.style.opacity = "0.5")}
-      onMouseUp={(e) => (e.currentTarget.style.opacity = "1")}
-      onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-      onTouchStart={(e) => (e.currentTarget.style.opacity = "0.5")}
-      onTouchEnd={(e) => (e.currentTarget.style.opacity = "1")}
+      onMouseDown={(e) => {
+        e.currentTarget.style.transform = "scale(0.95)";
+        e.currentTarget.style.filter = "brightness(1.2)";
+      }}
+      onMouseUp={(e) => {
+        e.currentTarget.style.transform = "scale(1)";
+        e.currentTarget.style.filter = "brightness(1)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "scale(1)";
+        e.currentTarget.style.filter = "brightness(1)";
+      }}
+      onTouchStart={(e) => {
+        e.currentTarget.style.transform = "scale(0.95)";
+        e.currentTarget.style.filter = "brightness(1.2)";
+      }}
+      onTouchEnd={(e) => {
+        e.currentTarget.style.transform = "scale(1)";
+        e.currentTarget.style.filter = "brightness(1)";
+      }}
     >
       {value}
     </div>

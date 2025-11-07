@@ -1,4 +1,4 @@
-import AnniversaryApp from "./pages/Resume/main/2Years";
+import AnniversaryApp from "./pages/2Years/main/2Years";
 
 const App = () => {
   return (
