@@ -95,7 +95,7 @@ export default function AnniversaryApp() {
           width: "100vw",
           backgroundColor: "#000",
           display: "flex",
-          alignItems: "flex-end",
+          alignItems: "center",
           justifyContent: "center",
           padding: 0,
           margin: 0,
@@ -108,11 +108,7 @@ export default function AnniversaryApp() {
           style={{
             width: "100%",
             maxWidth: "100%",
-            padding: isMobile ? "0" : "20px",
-            paddingBottom: isMobile
-              ? "max(env(safe-area-inset-bottom), 34px)"
-              : "40px",
-            paddingTop: isMobile ? "20px" : "0",
+            padding: isMobile ? "0 12px" : "20px",
           }}
         >
           {/* Display */}
@@ -121,12 +117,12 @@ export default function AnniversaryApp() {
               backgroundColor: "#000",
               color: "#fff",
               textAlign: "right",
-              fontSize: isMobile ? "80px" : "72px",
+              fontSize: isMobile ? "70px" : "72px",
               fontWeight: "200",
-              marginBottom: isMobile ? "20px" : "16px",
-              padding: isMobile ? "0 24px" : "0 32px",
+              marginBottom: isMobile ? "12px" : "16px",
+              padding: isMobile ? "0 12px" : "0 32px",
               overflow: "hidden",
-              minHeight: isMobile ? "140px" : "120px",
+              minHeight: isMobile ? "100px" : "120px",
               display: "flex",
               alignItems: "flex-end",
               justifyContent: "flex-end",
@@ -141,10 +137,10 @@ export default function AnniversaryApp() {
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
-              gap: isMobile ? "12px" : "14px",
+              gap: isMobile ? "10px" : "14px",
               maxWidth: "100%",
               margin: "0 auto",
-              padding: isMobile ? "0 12px" : "0 16px",
+              padding: isMobile ? "0" : "0 16px",
             }}
           >
             {/* Row 1 */}
@@ -368,7 +364,7 @@ function CalcButton({
 
   const currentColor = colors[color];
   const isMobile = window.innerWidth <= 414;
-  const buttonSize = isMobile ? Math.floor((window.innerWidth - 48) / 4) : 84;
+  const buttonSize = isMobile ? Math.floor((window.innerWidth - 44) / 4) : 84;
 
   return (
     <div
