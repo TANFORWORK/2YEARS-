@@ -110,8 +110,9 @@ export default function AnniversaryApp() {
             maxWidth: "100%",
             padding: isMobile ? "0" : "20px",
             paddingBottom: isMobile
-              ? "max(env(safe-area-inset-bottom), 40px)"
+              ? "max(env(safe-area-inset-bottom), 34px)"
               : "40px",
+            paddingTop: isMobile ? "20px" : "0",
           }}
         >
           {/* Display */}
