@@ -109,6 +109,7 @@ export default function AnniversaryApp() {
             width: "100%",
             maxWidth: "100%",
             padding: isMobile ? "0 12px" : "20px",
+            marginTop: isMobile ? "60px" : "0",
           }}
         >
           {/* Display */}
