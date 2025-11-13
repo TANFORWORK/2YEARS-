@@ -24,22 +24,32 @@ export default function AnniversaryApp() {
   const memories: Memory[] = [
     {
       id: 1,
-      url: "/public/img&clip/TEST.jpg",
+      url: "/public/img&clip/1.jpg",
       caption: "",
     },
     {
       id: 2,
-      url: "",
+      url: "/public/img&clip/3.jpg",
       caption: "",
     },
     {
       id: 3,
-      url: "",
+      url: "/public/img&clip/4.jpg",
       caption: "",
     },
     {
       id: 4,
-      url: "",
+      url: "/public/img&clip/5.jpg",
+      caption: "",
+    },
+    {
+      id: 5,
+      url: "/public/img&clip/6.jpg",
+      caption: "",
+    },
+    {
+      id: 6,
+      url: "/public/img&clip/2.jpg",
       caption: "",
     },
   ];
@@ -223,9 +233,9 @@ export default function AnniversaryApp() {
               padding: "0 16px",
             }}
           >
-            เขียนข้อความตรงนี้ได้เลย
+            Luv u mak mak na Teeruk
             <br />
-            สิ่งที่อยากบอกแฟน
+            🩷🩷
           </p>
         </div>
 
@@ -286,7 +296,10 @@ export default function AnniversaryApp() {
                 {memory.url.includes("video") || memory.url.includes(".mp4") ? (
                   <video
                     src={memory.url}
-                    controls
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     style={{
                       width: "100%",
                       height: "100%",
@@ -334,7 +347,7 @@ export default function AnniversaryApp() {
       {/* Footer */}
       <div style={{ padding: "80px 0", textAlign: "center" }}>
         <p style={{ fontSize: "14px", color: "#999", marginBottom: "8px" }}></p>
-        <p style={{ color: "#666" }}>ขอบคุณสำหรับทุกวัน</p>
+        <p style={{ color: "#666" }}>Thx for every day nakub my luv 🩷</p>
       </div>
 
       <style>{`
