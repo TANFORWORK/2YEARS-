@@ -24,32 +24,32 @@ export default function AnniversaryApp() {
   const memories: Memory[] = [
     {
       id: 1,
-      url: "/public/img&clip/1.jpg",
+      url: "/img&clip/1.jpg",
       caption: "",
     },
     {
       id: 2,
-      url: "/public/img&clip/3.jpg",
+      url: "/img&clip/3.jpg",
       caption: "",
     },
     {
       id: 3,
-      url: "/public/img&clip/4.jpg",
+      url: "/img&clip/4.jpg",
       caption: "",
     },
     {
       id: 4,
-      url: "/public/img&clip/5.jpg",
+      url: "/img&clip/5.jpg",
       caption: "",
     },
     {
       id: 5,
-      url: "/public/img&clip/6.jpg",
+      url: "/img&clip/6.jpg",
       caption: "",
     },
     {
       id: 6,
-      url: "/public/img&clip/2.jpg",
+      url: "/img&clip/2.jpg",
       caption: "",
     },
   ];
